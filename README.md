@@ -109,6 +109,35 @@ Authorization: Bearer <token>
 | `PUT` | `/api/leaves/{id}` | Owner | Update leave request (only while `PENDING`) |
 | `DELETE` | `/api/leaves/{id}` | Owner | Cancel leave request (only while `PENDING`) |
 
+### Sample Leave Request (`POST /api/leaves`, `PUT /api/leaves/{id}`)
+
+```json
+{
+  "type": "ANNUAL",
+  "startDate": "2026-11-01",
+  "endDate": "2026-11-05",
+  "reason": "Family vacation"
+}
+```
+
+- `type`: `ANNUAL`, `CASUAL`, `SICK`, or `UNPAID`
+- `startDate` / `endDate`: `YYYY-MM-DD` format
+- `reason`: required (an empty reason returns HTTP 400)
+
+The curl command below is for Bash. On Windows, use the Postman collection or curl.exe with the body in a file:
+
+```bash
+curl -X POST http://localhost:8080/api/leaves \
+  -H "Authorization: Bearer <token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "type": "ANNUAL",
+    "startDate": "2026-11-01",
+    "endDate": "2026-11-05",
+    "reason": "Family vacation"
+  }'
+```
+
 ### Manager Operations (`/api/leaves`)
 
 | Method | Endpoint | Access | Description |
